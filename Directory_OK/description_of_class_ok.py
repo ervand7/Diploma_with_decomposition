@@ -160,13 +160,15 @@ class OK:
             return single_dct_name_link
             # _______________________________________________
 
-        def splitting_big_dct_into_many_small_dcts(data, size=0):
-            it = iter(data)
-            for i in range(0, len(data), size):
-                yield {k: data[k] for k in islice(it, size)}
+        def splitting_big_dct_into_many_small_dicts(initial_dict, start_from_first_element=1):
+            iter_initial_dict = iter(initial_dict)
+            for i in range(len(initial_dict)):
+                yield {key_: initial_dict[key_] for key_ in islice(iter_initial_dict, start_from_first_element)}
+
+        n = splitting_big_dct_into_many_small_dicts
 
         lst_of_small_dicts = []
-        for item in splitting_big_dct_into_many_small_dcts({i: a for i, a in select_size_and_give_name().items()}, 1):
+        for item in n(select_size_and_give_name()):
             lst_of_small_dicts.append(item)
             # _______________________________________________
             # final arrangement of elements
